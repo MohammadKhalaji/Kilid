@@ -1,0 +1,731 @@
+{% extends 'kilidapp/base.html' %}
+{% load mathfilters %}
+{% load staticfiles %}
+
+
+{% block body %}
+    {% include 'kilidapp/header.html' %}
+    <article class="flex-row myContainer single-listing-page">
+        <div class="side-bar-holder">
+            <div class="property-details">
+                <div class="flex-row align-center justify-between date-and-code">
+                    <div class="code">کد ملک: {{ house.id }}</div>
+                    {#                    <div class="date">{{ this.diff }}{{ this.diffUnit }}</div>#}
+                </div>
+                <h1 class="page-title">
+                    خرید
+                    {{ house.title }}
+                </h1>
+                <div class="prices">
+                    <div class="sale-type">
+                        <div class="single-price price">
+                            <span class="title">قیمت:</span>
+                            {% with i=house.price %}
+                                <span>
+                  {{ i|div:1000000000|floatformat }}
+                  میلیارد تومان
+                </span>
+                            {% endwith %}
+                        </div>
+                        <div class="single-price unit-price">
+                            <span class="title">قیمت هر مترمربع:</span>
+                            {% with i=house.price j=house.meters %}
+                                <span>
+                  {{ i|div:j|div:1000000|floatformat }}
+                  میلیون تومان
+                </span>
+                            {% endwith %}
+
+                        </div>
+                    </div>
+                </div>
+                <hr class="divider"/>
+                <div class="details">
+                    <div class="flex-row align-center detail">
+              <span class="flex-row icon">
+                <svg
+                        _ngcontent-c6
+                        class="ng-tns-c6-2"
+                        viewBox="0 0 21.5 21.279"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                          _ngcontent-c6
+                          class="ng-tns-c6-2"
+                          id="home"
+                          transform="translate(-2.65 -5.05)"
+                  >
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M3.9,12.332,13.575,4.8l9.675,7.532"
+                            data-name="Path 3310"
+                            fill="none"
+                            id="Path_3310"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(-0.175 1)"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 255"
+                            fill="none"
+                            id="Line_255"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(3.4 25.579)"
+                            x1="20"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 256"
+                            fill="none"
+                            id="Line_256"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(5.932 14.3)"
+                            y2="11.279"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 257"
+                            fill="none"
+                            id="Line_257"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(20.868 14.3)"
+                            y2="4.006"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 258"
+                            fill="none"
+                            id="Line_258"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(20.868 22.722)"
+                            y2="2.792"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M30.6,29.449a.649.649,0,1,0-.649.649A.651.651,0,0,0,30.6,29.449Z"
+                            data-name="Path 3311"
+                            fill="#b8b8b8"
+                            fill-rule="evenodd"
+                            id="Path_3311"
+                            transform="translate(-9.082 -8.416)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M15.8,33.008V26.255a.444.444,0,0,1,.455-.455h2.922a.444.444,0,0,1,.455.455v6.688"
+                            data-name="Path 3312"
+                            fill="none"
+                            fill-rule="evenodd"
+                            id="Path_3312"
+                            stroke="#b8b8b8"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(-4.348 -7.364)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M16.06,17.6h3.377a.279.279,0,0,1,.26.26v2.013a.279.279,0,0,1-.26.26H16.06a.279.279,0,0,1-.26-.26V17.86A.279.279,0,0,1,16.06,17.6Z"
+                            data-name="Path 3313"
+                            fill="none"
+                            fill-rule="evenodd"
+                            id="Path_3313"
+                            stroke="#b8b8b8"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(-4.348 -4.488)"
+                    />
+                  </g>
+                </svg>
+              </span>
+                        <span>{{ house.house_type }}</span>
+                    </div>
+                    <div class="flex-row align-center detail">
+              <span class="flex-row icon">
+                <svg
+                        _ngcontent-c6
+                        class="ng-tns-c6-2"
+                        viewBox="0 0 23.224 18.948"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                          _ngcontent-c6
+                          class="ng-tns-c6-2"
+                          data-name="Group 3245"
+                          id="Group_3245"
+                          transform="translate(-267.25 -470.802)"
+                  >
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M55.6,351.424V344.6a.855.855,0,0,1,.828-.9H68.152m2.621,2.621v5.1"
+                            data-name="Path 3351"
+                            fill="none"
+                            id="Path_3351"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(215.573 127.852)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M72.238,363.736H70.859c0-.483,0-2.966-.759-3.034-.345,0-4.552-.069-8.414-.069s-7.034,0-7.448.069c-.759.069-.759,2.552-.759,2.965H52.1v-6.828c0-.69,0-1.1.345-1.31,4.552-3.1,14.207-3.172,18.966-.207a1.59,1.59,0,0,1,.759,1.379v7.034Z"
+                            data-name="Path 3352"
+                            fill="none"
+                            fill-rule="evenodd"
+                            id="Path_3352"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(216.659 124.919)"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 271"
+                            fill="none"
+                            id="Line_271"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(286.621 489)"
+                            x1="3.103"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 272"
+                            fill="none"
+                            id="Line_272"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(268 489)"
+                            x1="3.172"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M59.7,352.055V350.4c0-1.1,1.172-2,2.621-2H66.8c1.448,0,2.621.9,2.621,2v1.655"
+                            data-name="Path 3353"
+                            fill="none"
+                            fill-rule="evenodd"
+                            id="Path_3353"
+                            stroke="#b8b8b8"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(214.3 126.393)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M78.017,343.659a.759.759,0,1,0-.759.759A.765.765,0,0,0,78.017,343.659Z"
+                            data-name="Path 3354"
+                            fill="#b8b8b8"
+                            fill-rule="evenodd"
+                            id="Path_3354"
+                            transform="translate(209.086 128.1)"
+                    />
+                  </g>
+                </svg>
+              </span>
+                        <span>{{ house.bedrooms }} خوابه</span>
+                    </div>
+                    <div class="flex-row align-center detail">
+              <span class="flex-row icon">
+                <svg
+                        _ngcontent-c6
+                        class="ng-tns-c6-2"
+                        viewBox="0 0 22.5 22.317"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                          _ngcontent-c6
+                          class="ng-tns-c6-2"
+                          data-name="Group 3246"
+                          id="Group_3246"
+                          transform="translate(-268.25 -503.25)"
+                  >
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M25.517,10.108V8.247A1.518,1.518,0,0,0,23.954,6.8H9.363A1.516,1.516,0,0,0,7.8,8.247v14.54a1.518,1.518,0,0,0,1.563,1.447H23.954a1.516,1.516,0,0,0,1.563-1.447V16.708"
+                            data-name="Path 3343"
+                            fill="none"
+                            id="Path_3343"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(262.899 498.567)"
+                    />
+                    <ellipse
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            cx="0.864"
+                            cy="0.864"
+                            data-name="Ellipse 86"
+                            fill="#b8b8b8"
+                            id="Ellipse_86"
+                            rx="0.864"
+                            ry="0.864"
+                            transform="translate(287.625 511.845)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M8.015,8.931a2.015,2.015,0,0,0,0-4.031A2.06,2.06,0,0,0,6,6.915,2.012,2.012,0,0,0,8.015,8.931Z"
+                            data-name="Path 3344"
+                            fill="#fff"
+                            fill-rule="evenodd"
+                            id="Path_3344"
+                            stroke="#b8b8b8"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(263 499.1)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M8.015,33.631A2.015,2.015,0,1,0,6,31.615,2.06,2.06,0,0,0,8.015,33.631Z"
+                            data-name="Path 3345"
+                            fill="#fff"
+                            fill-rule="evenodd"
+                            id="Path_3345"
+                            stroke="#b8b8b8"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(263 491.186)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M30.215,33.631A2.015,2.015,0,1,0,28.2,31.615,2.06,2.06,0,0,0,30.215,33.631Z"
+                            data-name="Path 3346"
+                            fill="#fff"
+                            fill-rule="evenodd"
+                            id="Path_3346"
+                            stroke="#b8b8b8"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(257.769 491.186)"
+                    />
+                  </g>
+                </svg>
+              </span>
+                        <span>{{ house.meters }} متر</span>
+                    </div>
+
+                    {% if house.parkings > 0 %}
+                        <div class="flex-row align-center detail">
+              <span class="flex-row icon">
+                <svg
+                        _ngcontent-c6
+                        class="ng-tns-c6-2"
+                        viewBox="0 0 19.748 23.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                          _ngcontent-c6
+                          class="ng-tns-c6-2"
+                          data-name="Group 3247"
+                          id="Group_3247"
+                          transform="translate(-269.25 -539.25)"
+                  >
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M26.147,8.111V6.272A1.476,1.476,0,0,0,24.676,4.8H9.372A1.476,1.476,0,0,0,7.9,6.272V21.134a1.476,1.476,0,0,0,1.472,1.472H24.6a1.476,1.476,0,0,0,1.472-1.472V14"
+                            data-name="Path 3340"
+                            fill="none"
+                            id="Path_3340"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(262.1 535.2)"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 267"
+                            fill="none"
+                            id="Line_267"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(270.147 562)"
+                            x1="17.88"
+                    />
+                    <line
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            data-name="Line 268"
+                            fill="none"
+                            id="Line_268"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(279.124 558.174)"
+                            y1="2.134"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M17.5,19.326V11.6h4.268a.817.817,0,0,1,.809.809v2.8a.817.817,0,0,1-.809.809H17.5"
+                            data-name="Path 3341"
+                            fill="none"
+                            id="Path_3341"
+                            stroke="#b8b8b8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2.613"
+                            stroke-width="1.5"
+                            transform="translate(259.564 533.403)"
+                    />
+                    <path
+                            _ngcontent-c6
+                            class="ng-tns-c6-2"
+                            d="M32.309,14.819a.809.809,0,1,0-.809-.809A.817.817,0,0,0,32.309,14.819Z"
+                            data-name="Path 3342"
+                            fill="#b8b8b8"
+                            fill-rule="evenodd"
+                            id="Path_3342"
+                            transform="translate(255.865 532.98)"
+                    />
+                  </g>
+                </svg>
+              </span>
+                            <span>پارکینگ {{ house.parkings }} عدد</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex-col single-agency-holder">
+                <div class="flex-col align-center single-agency-header">
+                    <a class="agency-logo" style="background-image:url({% static 'kilidapp/Pics/eanjoman.jpg' %})"></a>
+                    <span class="agency-name">{{ house.estate }}</span>
+                </div>
+                <p class="agency-description"></p>
+                <span class="agency-manager"></span>
+                <a
+                        class="flex-row align-center justify-center agency-info-button"
+                >1111111</a>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="flex-row align-center breadcrumb-holder">
+
+                <div><a class="breadcrumb-part">{{ house.location }}</a>
+                    <i class="fa fa-angle-left" aria-hidden="true"></i></div>
+                <div>
+                    <a class="breadcrumb-part">{{ house.locality }}</a>
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                </div>
+
+            </div>
+            {% if house.pic %}
+                <div class="fotorama">
+                    {#                        <img src="{{ house.pic.url }}"/>#}
+                    {% for image in images %}
+                        <img src="{{ image.url }}"/>
+                    {% endfor %}
+                </div>
+                <br><br>
+            {% endif %}
+
+            <div class="row text-center">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    {% load crispy_forms_tags %}
+                    <form method="post" action="{% url 'house' house.id %}">
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-success">ارسال</button>
+                    </form>
+                </div>
+                <div class="col-md-1"></div>
+
+
+            </div>
+        <br><br>
+
+
+            <div class="row text-center">
+                <div class="col-md-1">
+
+                </div>
+
+                <div class="col-md-10">
+
+
+                    <table class="table table-striped">
+                        <tr><th>کامنت</th></tr>
+                        {% for comment in comments %}
+                            <tr><td>{{ comment.text }}</td></tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <div class="col-md-1">
+
+                </div>
+            </div>
+
+
+        </div>
+    </article>
+
+
+    <script>
+        var curIdx = 0;
+        var myImages = [];
+        var rest = [];
+        {% for image in images %}
+            myImages.push("{{ image.url }}");
+        {% endfor %}
+
+
+        function next() {
+            curIdx++;
+            curIdx %= myImages.length;
+            buildRest();
+        }
+
+        function previous() {
+            if (curIdx == 0) {
+                curIdx = myImages.length - 1;
+            } else {
+                curIdx -= 1;
+            }
+            this.buildRest();
+        }
+
+        function buildRest() {
+            let bound = myImages.length <= 4 ? myImages.length : 4;
+            rest = [myImages[curIdx]];
+            for (var i = 1; i < bound; i++) {
+                let idx = curIdx + i;
+                idx %= myImages.length;
+                let cur = myImages[idx];
+                rest.push(cur);
+            }
+        }
+
+        buildRest();
+    </script>
+{% endblock %}
+
+
+{% block head %}
+    {% load staticfiles %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'kilidapp/css/bootstrap.min.css' %}">
+
+    <style>
+        .fotorama {
+            display: block;
+        }
+
+        .single-listing-page {
+            padding: 24px 0 142px;
+            position: relative;
+        }
+
+        .single-listing-page .side-bar-holder {
+            flex: 1 1 0;
+            margin-left: 16px;
+            position: sticky;
+            align-self: flex-start;
+            top: 98px;
+        }
+
+        .single-listing-page .side-bar-holder .property-details {
+            background-color: #fff;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            padding: 15px 24px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #373435;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .date-and-code {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            margin-bottom: 10px;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .page-title {
+            color: #373435;
+            font-size: 16px;
+            line-height: 25px;
+            margin-bottom: 16px;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .prices {
+            color: #173a63;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .prices .title {
+            color: rgba(85, 85, 85, 0.7);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .divider {
+            border: none;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 16px;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .details .detail {
+            margin-bottom: 16px;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .details .icon {
+            margin-left: 16px;
+        }
+
+        .single-listing-page .side-bar-holder .property-details .details .icon svg {
+            width: 20px;
+            height: 24px;
+        }
+
+        .single-listing-page .side-bar-holder .single-agency-holder {
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            border-radius: 15px;
+            padding-bottom: 24px;
+            text-align: center;
+        }
+
+        .single-listing-page
+        .side-bar-holder
+        .single-agency-holder
+        .single-agency-header {
+            background-color: #f9f7f8;
+            border-radius: 15px 15px 0 0;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .single-listing-page
+        .side-bar-holder
+        .single-agency-holder
+        .single-agency-header
+        .agency-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .single-agency-info {
+            text-align: center;
+        }
+
+        .single-listing-page .side-bar-holder .single-agency-holder .agecy-description {
+            align-self: center;
+            margin: 0 16px 12px;
+            font-size: 12px;
+        }
+
+        .single-listing-page .side-bar-holder .single-agency-holder .agency-manager {
+            align-self: center;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .single-listing-page
+        .side-bar-holder
+        .single-agency-holder
+        .agency-info-button {
+            position: relative;
+            width: 155px;
+            height: 36px;
+            align-self: center;
+            border: none;
+            border-radius: 10px;
+            background-color: #b30753;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            cursor: pointer;
+        }
+
+        .main-content {
+            flex: 2 1 auto;
+            width: 0;
+            color: #373435;
+        }
+
+        .breadcrumb-holder {
+            font-size: 15px;
+            margin-bottom: 24px;
+            color: #aaa;
+        }
+
+        .fa-angle-left {
+            font-size: 20px;
+            margin-right: 3px;
+            margin-left: 5px;
+        }
+
+        .breadcrumb-holder div:last-child .fa-angle-left {
+            display: none;
+        }
+    </style>
+    <style>
+        * {
+            dir: rtl;
+        }
+    </style>
+{% endblock %}

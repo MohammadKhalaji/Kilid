@@ -1,0 +1,48 @@
+{% extends 'kilidapp/base.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'kilidapp/css/bootstrap.min.css' %}">
+    <script src="{% static 'kilidapp/js/bootstrap.bundle.js' %}"></script>
+    <style>
+        * {
+            font-family: Vazir;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    {% load crispy_forms_tags %}
+
+    <br>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 text-center">
+            <form method="post" action="{% url 'edit_house' pk %}" enctype="multipart/form-data">
+                {{ form.as_p }}
+                {{ imageform.as_p }}
+                <button type="submit" class="btn btn-success">تایید</button>
+            </form>
+
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-2"></div>
+
+    </div>
+{% endblock %}

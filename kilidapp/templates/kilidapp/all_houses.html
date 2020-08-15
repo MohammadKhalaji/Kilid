@@ -1,0 +1,530 @@
+{% extends 'kilidapp/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+        <div class="text-center">
+            <br><br>
+            <a href="{% url 'index' %}">
+            <button type="button" class="btn btn-primary">بازگشت به صفحه اصلی</button>
+        </a>
+
+            <a href="{% url 'dashboard' %}">
+            <button type="button" class="btn btn-info">داشبورد</button>
+        </a>
+        </div>
+            <div id="contentholder">
+                {% load mathfilters %}
+            <section class="flex-col align-center occasion">
+                <h2>{{ title }}</h2>
+                <div class="flex-row align-center justify-start wrapped myContainer cards">
+                    {% for house in houses %}
+                        <div id="house{{ house.id }}" class="wi-25">
+                            <listing-card class="flex-col align-center wi-xl-33 wi-l-50 wi-m-100 ng-star-inserted">
+
+                                <a class="flex-col kilid-card ng-star-inserted"
+      id="listing-card" href="{% url 'house' house.id %}">
+
+
+                                    <div class="flex-col kilid-card ng-star-inserted" id="listing-card"
+                                     href="{% url 'login' %}">
+                                    <div class="image-holder" style="background-image: url('{{ house.pic.url }}')">
+                                        {#                                        bookmarked, unbookmarked#}
+                                        {% if user.is_authenticated %}
+                                            {% if house in userbookmarks %}
+                                                <i id="bookmark{{ house.id }}" class="fa fa-bookmark bookmark-icon"
+                                                   aria-hidden="true" onclick="unbookmark(event, {{ house.id }})"></i>
+                                            {% else %}
+                                                <i id="bookmark{{ house.id }}" class="fa fa-bookmark-o bookmark-icon"
+                                                   aria-hidden="true" onclick="bookmark(event, {{ house.id }})"></i>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if house.starred %}
+                                            <div class="promoted ng-star-inserted">
+                                                <i aria-hidden="true" class="fa fa-star"></i>
+                                                <div class="promoted-shadow"></div>
+                                                <div class="promoted-background"></div>
+                                            </div>
+                                        {% endif %}
+                                        <div class="flex-row align-end justify-between images-detail">
+                                            <div class="flex-col address-and-title">
+                                                <span class="address">{{ house.locality }}</span>
+                                                <strong class="card-title">{{ house.title }}</strong>
+                                            </div>
+                                            <!---->
+                                            <div class="flex-row align-center number-of-images ng-star-inserted">
+                                                {% with x=house.houseimage_set.all|length %}
+                                                    <span>{{ x|add:1 }}</span>
+                                                {% endwith %}
+                                                <svg
+                                                        height="14.19"
+                                                        viewBox="0 0 16.5 14.19"
+                                                        width="16.5"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g data-name="Group 3030" id="Group_3030"
+                                                       transform="translate(-1278.063 -229.343)">
+                                                        <path
+                                                                class="cls-1"
+                                                                d="M15.07,10H.93a.931.931,0,0,0-.93.93v9.727a.931.931,0,0,0,.93.93H15.07a.931.931,0,0,0,.93-.93V10.93A.931.931,0,0,0,15.07,10Zm.378,10.657a.378.378,0,0,1-.378.378H.93a.378.378,0,0,1-.378-.378V10.93a.378.378,0,0,1,.378-.378H15.07a.378.378,0,0,1,.378.378Z"
+                                                                data-name="Path 3111"
+                                                                id="Path_3111"
+                                                                transform="translate(1278.313 221.696)"
+                                                        />
+                                                        <path
+                                                                class="cls-1"
+                                                                d="M17,14a4,4,0,1,0,4,4A4,4,0,0,0,17,14Zm0,7.525A3.527,3.527,0,1,1,20.525,18,3.531,3.531,0,0,1,17,21.525Z"
+                                                                data-name="Path 3112"
+                                                                id="Path_3112"
+                                                                transform="translate(1269.591 219.492)"
+                                                        />
+                                                        <path
+                                                                class="cls-1"
+                                                                d="M19.276,6.552h5.241a.276.276,0,1,0,0-.552H19.276a.276.276,0,0,0,0,.552Z"
+                                                                data-name="Path 3113"
+                                                                id="Path_3113"
+                                                                transform="translate(1264.554 223.593)"
+                                                        />
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-col card-detail-holder">
+                                        <div class="flex-row align-center property-info">
+                                            {#                                <div class="flex-row justify-center single-info date-info">#}
+                                            {#                                    {{ item.diff }}{{ item.diffUnit }}</div>#}
+                                            <div class="flex-row justify-center single-info">{{ house.bedrooms }}
+                                                خوابه
+                                            </div>
+                                            <div class="flex-row justify-center single-info">
+                                                <span>{{ house.meters }}</span> متر
+                                            </div>
+                                            <div class="flex-row justify-center single-info">{{ house.house_type }}</div>
+                                        </div>
+                                        <div class="flex-row price-holder justify-between">
+                                            <!---->
+                                            <div class="flex-col sale-prices ng-star-inserted">
+                                                <div class="flex-row single-price price">
+                                                    <div class="flex-row align-center title">قیمت:</div>
+                                                    <!---->
+                                                    {% with i=house.price %}
+                                                        <span class="ng-star-inserted">{{ i|div:1000000000|floatformat }} میلیارد تومان</span>
+                                                    {% endwith %}
+                                                    <!---->
+                                                </div>
+                                                <div class="flex-row single-price unit-price">
+                                                    <div class="flex-row align-center title">مترمربع:</div>
+                                                    <span>
+                                                        {% with i=house.price j=house.meters %}
+                                                            {{ i|div:j|div:1000000|floatformat }}
+                                                            میلیون تومان
+                                                        {% endwith %}
+              </span>
+
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <!---->
+                                            <!---->
+                                            <div class="flex-col align-center justify-around agency-holder ng-star-inserted">
+                                                <img alt src="{% static 'kilidapp/Pics/eanjoman.jpg' %}"/>
+                                                <span>{{ house.estate }}</span>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                </a>
+
+
+                            </listing-card>
+                            {#                            <div class="flex flex-row align-center justify-center">#}
+                            {#                                <a href="{% url 'edit_house' house.id %}">#}
+                            {#                                    <button type="button" class="btn btn-primary">ویرایش</button>#}
+                            {#                                </a>#}
+                            {##}
+                            {#                                <a href="{% url 'delete_house' house.id %}">#}
+                            {#                                    <button type="button" onclick="delete_house({{ house.id }})" class="btn btn-danger">حذف</button>#}
+                            {#                                </a>#}
+                            {#                            </div>#}
+                            <br><br><br><br>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+                {% if long %}
+                    <a
+                            class="flex-row align-center justify-center button"
+                            onclick="loadAll()"
+                    >لود کردن تمام خانه ها</a>
+                {% endif %}
+            </section>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <script>
+        function bookmark(event, id) {
+            let url = 'http://localhost:7000/bookmark_ajax/' + id;
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let jsonobject = JSON.parse(this.responseText);
+                    if (jsonobject['status'] === 'ok') {
+                        let elem = document.getElementById('bookmark' + id);
+                        elem.setAttribute('class', 'fa fa-bookmark bookmark-icon');
+                        elem.setAttribute('onclick', 'unbookmark(event, ' + id + ')');
+                        toastr.success('بوکمارک شد');
+                    }
+                }
+            };
+            xhr.open('GET', url);
+            xhr.send();
+            event.preventDefault();
+
+        }
+
+        function unbookmark(event, id) {
+            let url = 'http://localhost:7000/unbookmark_ajax/' + id;
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let jsonobject = JSON.parse(this.responseText);
+                    if (jsonobject['status'] === 'ok') {
+                        let elem = document.getElementById('bookmark' + id);
+                        elem.setAttribute('class', 'fa fa-bookmark-o bookmark-icon');
+                        elem.setAttribute('onclick', 'bookmark(event, ' + id + ')');
+                        toastr.success('از بوکمارک حذف شد');
+                    }
+                }
+            };
+            xhr.open('GET', url);
+            xhr.send();
+            event.preventDefault();
+        }
+
+        function loadAll() {
+            let url = 'http://localhost:7000/load_all_ajax/';
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let jsonobject = JSON.parse(this.responseText);
+                    if (jsonobject['status'] === 'ok') {
+                        {#let elem = document.getElementById('bookmark' + id);#}
+                        {#elem.setAttribute('class', 'fa fa-bookmark-o bookmark-icon');#}
+                        {#elem.setAttribute('onclick', 'bookmark(' + id + ')');#}
+                        {#toastr.success('از بوکمارک حذف شد');#}
+                        {#console.log(jsonobject['data']);#}
+                        document.getElementById('contentholder').children[0].remove();
+                        document.getElementById('contentholder').innerHTML = jsonobject['data'];
+                    }
+
+                }
+            };
+            xhr.open('GET', url);
+            xhr.send();
+        }
+    </script>
+{% endblock %}
+
+
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'kilidapp/css/bootstrap.min.css' %}">
+    {#    <script src="{% static 'kilidapp/js/bootstrap.bundle.js' %}"></script>#}
+    <link rel="stylesheet" type="text/css" href="{% static 'kilidapp/hw2styles.css' %}">
+    <style>
+        * {
+            font-family: Vazir;
+        }
+    </style>
+    <style>
+
+        .occasion {
+            margin-top: 20px;
+            padding: 40px 0;
+        }
+
+        .occasion .cards {
+            margin-bottom: 20px;
+        }
+
+        .occasion .cards listing-card {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .wi-25 {
+            width: 25%;
+            min-width: 25%;
+        }
+
+        .kilid-card {
+            height: 250px;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: all .3s ease;
+        }
+
+        .kilid-card:hover {
+            box-shadow: 0 1px 16.17px 4.83px rgba(209, 211, 213, .77);
+        }
+
+        .kilid-card .image-holder {
+            position: relative;
+            height: 154px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background: center center/cover no-repeat;
+        }
+
+        .kilid-card .card-detail-holder {
+            flex: 1;
+            padding: 2px;
+        }
+
+        .kilid-card .image-holder .save-icon {
+            position: absolute;
+            top: 7px;
+            left: 8px;
+            transition: all .3s ease;
+        }
+
+        .kilid-card .image-holder .save-icon svg {
+            width: 20px;
+            height: 28px;
+        }
+
+        .kilid-card .image-holder .save-icon svg .cls-1 {
+            fill: rgba(51, 51, 51, .4);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .kilid-card .image-holder .save-icon svg .cls-1.active {
+            fill: rgba(255, 255, 255, 1);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .kilid-card .image-holder .save-icon svg .cls-2,
+        .kilid-card .image-holder .save-icon svg .cls-3 {
+            stroke: none;
+        }
+
+        .kilid-card .image-holder .save-icon svg .cls-3 {
+            fill: #fff;
+        }
+
+        .kilid-card .image-holder .save-icon:hover svg .cls-1 {
+            fill: rgba(179, 7, 83, .5);
+        }
+
+        .kilid-card .image-holder .save-icon:hover svg .cls-1.active {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .kilid-card .image-holder .promoted {
+            position: absolute;
+            top: 5px;
+            width: 33px;
+            height: 30px;
+            display: flex;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            justify-content: center;
+            align-items: center;
+            right: 0;
+            color: #fff;
+        }
+
+        .kilid-card .image-holder .promoted i {
+            z-index: 12;
+        }
+
+        .kilid-card .image-holder .promoted .promoted-shadow {
+            background-color: rgba(51, 51, 51, .2);
+            position: absolute;
+            left: -4px;
+            bottom: -3px;
+            width: 37px;
+            z-index: 10;
+            height: 30px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+
+        }
+
+        .kilid-card .image-holder .promoted .promoted-background {
+            width: 100%;
+            height: 100%;
+            z-index: 11;
+            position: absolute;
+            background-color: #ffba00;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .kilid-card .image-holder .images-detail {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            padding: 8px 10px;
+            background: linear-gradient(to top,
+            rgba(0, 0, 0, .5) 0,
+            rgba(0, 0, 0, .001) 100%);
+            font-size: 10px;
+            color: #fff;
+            bottom: 0;
+            right: 0;
+        }
+
+        .kilid-card .image-holder .address-and-title .address {
+            font-size: 10px;
+            color: #fffbfb;
+            margin-bottom: 8px;
+        }
+
+        .kilid-card .image-holder .address-and-title .card-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .kilid-card .image-holder .number-of-images svg {
+            width: 17px;
+            height: 14px;
+            margin-right: 5px;
+            fill: #fff;
+            stroke: #fff;
+            stroke-width: .5px;
+        }
+
+        .kilid-card .card-detail-holder {
+            flex: 1;
+            padding: 2px;
+        }
+
+        .kilid-card .property-info {
+            padding: 2px 0;
+            border-bottom: 1px solid #e1e4e9;
+        }
+
+        .kilid-card .property-info .single-info {
+            flex: 1;
+            color: #666;
+            font-size: 11px;
+            border-left: 1px solid #e1e4e9;
+            white-space: nowrap;
+        }
+
+        .kilid-card .property-info .date-info {
+            color: #517cfb;
+        }
+
+        .kilid-card .price-holder {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .kilid-card .sale-prices {
+            flex: 1;
+        }
+
+        .kilid-card .single-price {
+            font-size: 16px;
+            color: #173a63;
+        }
+
+        .kilid-card .single-price .title {
+            font-size: 11px;
+            margin-left: 10px;
+        }
+
+        .kilid-card .sale-prices .title {
+            width: 42px;
+            margin-left: 0;
+        }
+
+        .kilid-card .agency-holder img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            -o-object-fit: cover;
+            object-fit: cover;
+        }
+
+        .kilid-card .agency-holder span {
+            font-size: 9px;
+            color: #666;
+            width: 55px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .occasion h2 {
+            color: #b30753;
+            margin-bottom: 30px;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .button {
+            width: 200px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+
+        .occasion .button {
+            width: 185px;
+            font-size: 15px;
+            color: #b30753;
+            background: #fff;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+            transition: all .3s ease;
+        }
+
+        .occasion .button:hover {
+            background-color: #b30753;
+            color: #fff;
+        }
+    </style>
+    <style>
+        * {
+            dir: rtl;
+        }
+    </style>
+
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+
+    <style>
+        .bookmark-icon {
+            margin: 5px;
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,115 @@
+<home>
+    <header class="big-picture flex-col justify-center">
+        <div class="flex-col container align-center justify-center">
+            <h1 class="main-heading">
+                کیلید، سامانه هوشمند مسکن
+            </h1>
+
+            <search-box class="flex-row justify-center">
+                <div id="home-search" class="wrapper flex-col">
+                    <div class="buttons">
+                        <a class="flex-row align-center justify-center button active">
+                            خرید
+                        </a>
+                        <a class="flex-row align-center justify-center button">
+                            رهن و اجاره
+                        </a>
+                        <a class="flex-row align-center justify-center button">
+                            قیمت خانه شما؟
+                        </a>
+
+                    </div>
+                    <form method="post" action="{% url 'search' %}" id="myForm">
+                        <div class="flex-col input-holder justify-center align-end wi-100">
+                        <div class="flex-row wi-100 search-holder">
+                            <div class="city-nei flex-row">
+                                <div class="flex-row align-center city-holder">
+                                    <div class="flex-row align-center loc-icon-holder">
+                                        <svg _ngcontent-c5="" class="loc-icon" height="22" viewBox="0 0 22 22"
+                                             width="22" xmlns="http://www.w3.org/2000/svg">
+                                            <path _ngcontent-c5="" class="ng-tns-c5-2"
+                                                  d="M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm8.94,3A8.994,8.994,0,0,0,13,3.06V1H11V3.06A8.994,8.994,0,0,0,3.06,11H1v2H3.06A8.994,8.994,0,0,0,11,20.94V23h2V20.94A8.994,8.994,0,0,0,20.94,13H23V11H20.94ZM12,19a7,7,0,1,1,7-7A6.995,6.995,0,0,1,12,19Z"
+                                                  data-name="Path 4931" fill="#373435" id="Path_4931"
+                                                  transform="translate(-1 -1)"></path>
+                                        </svg>
+                                        <input name="location" type="text" placeholder="نام شهر">
+                                    </div>
+                                </div>
+
+
+                                <div class="flex-row align-center wrapped input-field">
+                                    <input name="locality" type="text" placeholder="نام محله، منطقه یا ایستگاه مترو">
+                                </div>
+                            </div>
+                            <div class="search-button flex-col align-center justify-center" onclick="submitForm()">
+                                <span class="flex-row align-center justify-center fa fa-search"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex-row align-center wi-100 more-search-holder">
+                            <div class="flex-row justify-between more-search" style="height: 0px; overflow: hidden">
+                                <div class="flex-row justify-between wi-100 non-analysis-more-search">
+                                    <div class="fields-holder flex-row">
+                                        <div class="flex-row align-right justify-between">
+                                            <span class="additionalInputsHolder flex-row align-center justify-center">
+                                                <input type="number" name="minMeters" step="0.01"
+                                                       placeholder="حداقل متراژ" class="additionalInput"/>
+                                                <input type="number" name="maxMeters" step="0.01"
+                                                       placeholder="حداکثر متراژ" class="additionalInput"/>
+                                                <input type="number" name="minPrice" step="0.01"
+                                                       placeholder="حداقل قیمت" class="additionalInput"/>
+                                                <input type="number" name="maxPrice" step="0.01"
+                                                       placeholder="حداکثر قیمت" class="additionalInput"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    </form>
+
+                </div>
+            </search-box>
+
+            <div class="flex-row align-center justify-center advancedsearch">
+                <a id="filterButton" onclick="loadFilters()">جستجوی پیشرفته</a>
+            </div>
+
+        </div>
+        <br>
+        <div class="flex-row align-center justify-center">
+            <!-- pulse -->
+            <a href="#anchormarker" class="anchor">
+                <div class="pulse-container flex-row align-center justify-center">
+                    <i class="fa fa-angle-down"></i>
+                </div>
+            </a>
+        </div>
+    </header>
+</home>
+
+
+<div id="anchormarker"></div>
+
+<script>
+
+    function loadFilters() {
+        document.getElementsByClassName("more-search")[0].setAttribute('style', 'overflow:visible; height:30px');
+        document.getElementsByClassName("input-holder")[0].setAttribute('class', 'flex-col justify-center wi-100 input-holder align-end pointy-points')
+        document.getElementById("filterButton").setAttribute("onclick", "unloadFilters()")
+    }
+
+    function unloadFilters() {
+        document.getElementsByClassName("more-search")[0].setAttribute('style', 'overflow:hidden; height:0px');
+        document.getElementsByClassName("input-holder")[0].setAttribute('class', 'flex-col justify-center wi-100 input-holder align-end');
+        document.getElementById("filterButton").setAttribute("onclick", "loadFilters()")
+    }
+
+    function submitForm() {
+        let form = document.getElementById("myForm");
+        form.submit();
+    }
+
+</script>

@@ -1,0 +1,97 @@
+{% extends 'kilidapp/base.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'kilidapp/css/bootstrap.min.css' %}">
+    <script src="{% static 'kilidapp/js/bootstrap.bundle.js' %}"></script>
+    <style>
+        * {
+            font-family: Vazir;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 text-center">
+        <br>
+        <a href="{% url 'dashboard' %}">
+            <button type="button" class="btn btn-primary">بازگشت به داشبورد</button>
+        </a>
+        <br><br>
+        <table class="table table-striped">
+            <tr>
+                <th>نام کاربری</th>
+                <th>اکشن ها</th>
+            </tr>
+            {% for iuser in users %}
+                <tr id="userid{{ iuser.id }}"><td>{{ iuser.username }}</td>
+                    <td>
+                        {% if iuser.profile.is_admin %}
+                                <button type="button" class="btn-secondary" >ترفیع به ادمین</button>
+                        {% else %}
+                                <button id="promote{{ iuser.id }}" type="button" class="btn-info" onclick="promoteUser({{ iuser.id }})">ترفیع به ادمین</button>
+
+                        {% endif %}
+
+                        {% if iuser == user %}
+                            <button type="button" class="btn-secondary" >حذف</button>
+                        {% else %}
+                                <button type="button" class="btn-danger" onclick="deleteUser({{ iuser.id }})">حذف</button>
+                        {% endif %}
+                    </td></tr>
+
+
+            {% endfor %}
+        </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+
+    <script>
+        function deleteUser(id) {
+            let url = 'http://localhost:7000/delete_user_ajax/' + id;
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let jsonobject = JSON.parse(this.responseText);
+                    if (jsonobject['status'] === 'ok') {
+                        document.getElementById("userid" + id).remove();
+                        toastr.success('حذف شد');
+                    }
+                    else {
+                        toastr.warning('مشکلی پیش اومده');
+                    }
+                }
+            };
+
+            xhr.open('GET', url);
+            xhr.send();
+
+        }
+
+        function promoteUser(id) {
+            let url = 'http://localhost:7000/promote_user_ajax/' + id;
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let jsonobject = JSON.parse(this.responseText);
+                    if (jsonobject['status'] === 'ok') {
+                        let elem = document.getElementById('promote' + id);
+                        elem.setAttribute("onclick", "");
+                        elem.setAttribute("class", "btn-secondary");
+                        toastr.success('ادمین شد');
+                    }
+                    else {
+                        toastr.warning('مشکلی پیش اومده');
+                    }
+                }
+            }
+            xhr.open('GET', url);
+            xhr.send();
+        }
+    </script>
+{% endblock %}

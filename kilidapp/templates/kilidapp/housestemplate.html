@@ -1,0 +1,147 @@
+{% load mathfilters %}
+{% load staticfiles %}
+<section class="flex-col align-center occasion">
+    <h2>{{ title }}</h2>
+    <div class="flex-row align-center justify-start wrapped myContainer cards">
+        {% for house in houses %}
+
+            <div id="house{{ house.id }}" class="wi-25" >
+                <listing-card class="flex-col align-center wi-xl-33 wi-l-50 wi-m-100 ng-star-inserted">
+                <a class="flex-col kilid-card ng-star-inserted"
+      id="listing-card" href="{% url 'house' house.id %}">
+                        <div class="flex-col kilid-card ng-star-inserted" id="listing-card"
+                         href="{% url 'login' %}">
+                        <div class="image-holder" style="background-image: url('{{ house.pic.url }}')">
+                            {#                                        bookmarked, unbookmarked#}
+                            {% if user.is_authenticated %}
+{#                                <h1>Authenticated User</h1>#}
+                                {% if house in userbookmarks %}
+                                    <i id="bookmark{{ house.id }}" class="fa fa-bookmark bookmark-icon"
+                                       aria-hidden="true" onclick="unbookmark(event, {{ house.id }})"></i>
+
+                                {% else %}
+                                    <i id="bookmark{{ house.id }}" class="fa fa-bookmark-o bookmark-icon"
+                                       aria-hidden="true" onclick="bookmark(event, {{ house.id }})"></i>
+                                {% endif %}
+                                {% else %}
+{#                                <h1>NOT AUTHENTICATED</h1>#}
+                            {% endif %}
+                            {% if house.starred %}
+                                <div class="promoted ng-star-inserted">
+                                    <i aria-hidden="true" class="fa fa-star"></i>
+                                    <div class="promoted-shadow"></div>
+                                    <div class="promoted-background"></div>
+                                </div>
+                            {% endif %}
+                            <div class="flex-row align-end justify-between images-detail">
+                                <div class="flex-col address-and-title">
+                                    <span class="address">{{ house.locality }}</span>
+                                    <strong class="card-title">{{ house.title }}</strong>
+                                </div>
+                                <!---->
+                                <div class="flex-row align-center number-of-images ng-star-inserted">
+                                    {% with x=house.houseimage_set.all|length %}
+                                        <span>{{ x|add:1 }}</span>
+                                    {% endwith %}
+                                    <svg
+                                            height="14.19"
+                                            viewBox="0 0 16.5 14.19"
+                                            width="16.5"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <g data-name="Group 3030" id="Group_3030"
+                                           transform="translate(-1278.063 -229.343)">
+                                            <path
+                                                    class="cls-1"
+                                                    d="M15.07,10H.93a.931.931,0,0,0-.93.93v9.727a.931.931,0,0,0,.93.93H15.07a.931.931,0,0,0,.93-.93V10.93A.931.931,0,0,0,15.07,10Zm.378,10.657a.378.378,0,0,1-.378.378H.93a.378.378,0,0,1-.378-.378V10.93a.378.378,0,0,1,.378-.378H15.07a.378.378,0,0,1,.378.378Z"
+                                                    data-name="Path 3111"
+                                                    id="Path_3111"
+                                                    transform="translate(1278.313 221.696)"
+                                            />
+                                            <path
+                                                    class="cls-1"
+                                                    d="M17,14a4,4,0,1,0,4,4A4,4,0,0,0,17,14Zm0,7.525A3.527,3.527,0,1,1,20.525,18,3.531,3.531,0,0,1,17,21.525Z"
+                                                    data-name="Path 3112"
+                                                    id="Path_3112"
+                                                    transform="translate(1269.591 219.492)"
+                                            />
+                                            <path
+                                                    class="cls-1"
+                                                    d="M19.276,6.552h5.241a.276.276,0,1,0,0-.552H19.276a.276.276,0,0,0,0,.552Z"
+                                                    data-name="Path 3113"
+                                                    id="Path_3113"
+                                                    transform="translate(1264.554 223.593)"
+                                            />
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-col card-detail-holder">
+                            <div class="flex-row align-center property-info">
+                                {#                                <div class="flex-row justify-center single-info date-info">#}
+                                {#                                    {{ item.diff }}{{ item.diffUnit }}</div>#}
+                                <div class="flex-row justify-center single-info">{{ house.bedrooms }}
+                                    خوابه
+                                </div>
+                                <div class="flex-row justify-center single-info">
+                                    <span>{{ house.meters }}</span> متر
+                                </div>
+                                <div class="flex-row justify-center single-info">{{ house.house_type }}</div>
+                            </div>
+                            <div class="flex-row price-holder justify-between">
+                                <!---->
+                                <div class="flex-col sale-prices ng-star-inserted">
+                                    <div class="flex-row single-price price">
+                                        <div class="flex-row align-center title">قیمت:</div>
+                                        <!---->
+                                        {% with i=house.price %}
+                                            <span class="ng-star-inserted">{{ i|div:1000000000|floatformat }} میلیارد تومان</span>
+                                        {% endwith %}
+                                        <!---->
+                                    </div>
+                                    <div class="flex-row single-price unit-price">
+                                        <div class="flex-row align-center title">مترمربع:</div>
+                                        <span>
+                                                        {% with i=house.price j=house.meters %}
+                                                            {{ i|div:j|div:1000000|floatformat }}
+                                                            میلیون تومان
+                                                        {% endwith %}
+              </span>
+
+                                        <!---->
+                                    </div>
+                                </div>
+                                <!---->
+                                <!---->
+                                <div class="flex-col align-center justify-around agency-holder ng-star-inserted">
+                                    <img alt src="{% static 'kilidapp/Pics/eanjoman.jpg' %}"/>
+                                    <span>{{ house.estate }}</span>
+                                </div>
+                                <!---->
+                            </div>
+                        </div>
+
+
+                    </div>
+                </a>
+
+                </listing-card>
+                {#                            <div class="flex flex-row align-center justify-center">#}
+                {#                                <a href="{% url 'edit_house' house.id %}">#}
+                {#                                    <button type="button" class="btn btn-primary">ویرایش</button>#}
+                {#                                </a>#}
+                {##}
+                {#                                <a href="{% url 'delete_house' house.id %}">#}
+                {#                                    <button type="button" onclick="delete_house({{ house.id }})" class="btn btn-danger">حذف</button>#}
+                {#                                </a>#}
+                {#                            </div>#}
+                <br><br><br><br>
+
+            </div>
+        {% endfor %}
+    </div>
+
+
+</section>

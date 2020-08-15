@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% load staticfiles %}
+    {% block head %}
+    {% endblock %}
+
+<link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'kilidapp/hw2styles.css' %}">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'kilidapp/font/font.css' %}">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <style>
+        * {
+            font-family: Vazir;
+        }
+    </style>
+
+
+</head>
+<body>
+{% block body %}
+{% endblock %}
+</body>
+</html>
